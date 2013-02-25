@@ -1,47 +1,13 @@
-class Stack:
-	def __init__(self):
-		self.items = []
-
+class stack:
+	def __init__ (self):
+		self.container = []
 	def isEmpty(self):
-		return self.items == []
-
-	def push(self, item):
-		self.items.append(item)
-
+		return self.container == []
+	def push(self, element):
+		self.container.append(element)
 	def pop(self):
-		return self.items.pop()
-
+		return self.container.pop()
 	def peek(self):
-		return self.items[len(self.items)-1]
-
+		return self.container[len(self.container)-1]
 	def size(self):
-		return len(self.items)
-
-def revstring(mystr):
-	aList = list(mystr)
-	aStack = Stack()
-	for letter in aList:
-		aStack.push(letter)
-	reverseString = ""
-	for i in range(len(aList)):
-		reverseString = reverseString + aStack.pop()
-	return reverseString
-
-def parChecker(symbolString):
-	s = Stack()
-	balanced = True
-	index = 0
-	while index < len(symbolString) and balanced:
-		symbol = symbolString[index]
-		if symbol == "(":
-			s.push(symbol)
-		else:
-			if s.isEmpty():
-				balanced = False
-			else:
-				s.pop()
-		index = index + 1
-	if balanced and s.isEmpty():
-		return True
-	else:
-		return False
+		return len(self.container)
