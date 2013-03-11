@@ -1,0 +1,54 @@
+def swap(index1, index2, li):
+	temp = li[index1]
+	li[index1] = li[index2]
+	li[index2] = temp
+	return li
+
+def bubbleSort(aList = []):
+	for passnum in range(len(aList)-1,0,-1):
+		for i in range(passnum):
+			if aList[i+1] < aList[i]:
+				aList = swap(i+1,i,aList)
+	return aList
+
+def shortBubbleSort(aList = []):
+	exchanges = True
+	passnum = len(aList) - 1
+	while passnum > 0 and exchanges:
+		exchanges = False
+		for i in range(passnum):
+			if aList[i+1] < aList[i]:
+				exchanges = True
+				aList = swap(i+1,i,aList)
+		passnum = passnum - 1
+	return aList
+
+def selectionSort(aList = []):
+	indexLarge = 0
+	for passnum in range(len(aList)-1,0,-1):
+		for i in range(passnum):
+			if aList[i] > aList[indexLarge]:
+				indexLarge = i
+		aList = swap(indexLarge, passnum, aList)
+	return aList
+
+def insertionSort(aList = []):
+	begUnsortedListPos = 1
+	for i in range(len(aList[begUnsortedListPos:])):
+		print("Unsorted List: %s" % aList[begUnsortedListPos:])
+		print("Comparing %s with... " % aList[i+1])
+		temp = aList[i+1]
+		for j in range(len(aList[:begUnsortedListPos]),0,-1):
+			print("\t... %s" % (aList[j-1]))
+			if aList[j-1] > aList[i+1]:
+				print("%s > %s! Shifting to right..." % (aList[i+1],aList[j-1]))
+				aList[i+1] = aList[j-1]
+				aList[j-1] = temp
+				continue
+		begUnsortedListPos = begUnsortedListPos + 1
+		print("Sorted List: %s" % aList[:begUnsortedListPos])
+	return "End"
+
+ul = [54,26,93,17,77,31,44,55,20]
+ul1 = [20,30,40,90,50,60,70,80,100,110]
+print(insertionSort(ul))
