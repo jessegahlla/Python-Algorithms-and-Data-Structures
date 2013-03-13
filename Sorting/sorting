@@ -34,21 +34,63 @@ def selectionSort(aList = []):
 
 def insertionSort(aList = []):
 	begUnsortedListPos = 1
-	for i in range(len(aList[begUnsortedListPos:])):
-		print("Unsorted List: %s" % aList[begUnsortedListPos:])
-		print("Comparing %s with... " % aList[i+1])
-		temp = aList[i+1]
-		for j in range(len(aList[:begUnsortedListPos]),0,-1):
-			print("\t... %s" % (aList[j-1]))
-			if aList[j-1] > aList[i+1]:
-				print("%s > %s! Shifting to right..." % (aList[i+1],aList[j-1]))
-				aList[i+1] = aList[j-1]
-				aList[j-1] = temp
-				continue
-		begUnsortedListPos = begUnsortedListPos + 1
-		print("Sorted List: %s" % aList[:begUnsortedListPos])
-	return "End"
+	for index in range(1,len(aList)):
+		currentValue = aList[index]
+		position = index
+		while position > 0 and aList[position-1] > currentValue:
+			aList[position] = aList[position-1]
+			position = position - 1
+		aList[position] = currentValue
+	return aList
+
+def shellSort(aList = []):
+	print("After no increments, the list is: %s" % aList)
+	sublistCount = len(aList)//2
+	while sublistCount > 0:
+		for startPosition in range(sublistCount):
+			gapInsertionSort(aList, startPosition, sublistCount)
+		print("After increments of size %s. The list is %s" % (sublistCount, aList))
+		sublistCount = sublistCount // 2
+
+def gapInsertionSort(aList, start, gap):
+	for i in range(start + gap, len(aList), gap):
+		currentValue = aList[i]
+		position = i
+		while position >= gap and aList[position - gap] > currentValue:
+			aList[position] = aList[position - gap]
+			position = position - gap
+		aList[position] = currentValue
+
+def mergeSort(aList):
+	print("Splitting, %s" % aList)
+	if len(aList) > 1:
+		mid = len(aList) // 2
+		leftHalf = aList[:mid]
+		rightHalf = aList[mid:]
+		mergeSort(leftHalf)
+		mergeSort(rightHalf)
+
+		i = 0
+		j = 0
+		k = 0
+		while i < len(leftHalf) and j < len(rightHalf):
+			if leftHalf[i] < rightHalf[j]:
+				aList[k] = leftHalf[i]
+				i = i + 1
+			else:
+				aList[k] = rightHalf[j]
+				j = j + 1
+			k = k + 1
+		while i < len(leftHalf):
+			aList[k] = leftHalf[i]
+			i = i + 1
+			k = k + 1
+		while j < len(rightHalf):
+			aList[k] = rightHalf[j]
+			j = j + 1
+			k = k + 1
+	print("Merging %s" % aList)
 
 ul = [54,26,93,17,77,31,44,55,20]
 ul1 = [20,30,40,90,50,60,70,80,100,110]
-print(insertionSort(ul))
+print(mergeSort(ul))
